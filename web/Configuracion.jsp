@@ -164,7 +164,7 @@
                                                 <input id="UpdateUser" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">                                     
                                             </div>
                                            <div class="form-check">
-                                               <input class="form-check-input" type="radio" name="miCheck" id="idCheck" value="option1" >
+                                               <input class="form-check-input" type="radio" name="miCheck" id="idCheckA" value="option1" >
                                                 <label class="form-check-label" for="idCheckA">
                                                   Activo
                                                 </label>
@@ -222,9 +222,9 @@
                         
                         document.getElementById("UpdateUser").value= producto
                         if(estado=='Activo'){
-                            document.getElementById("idCheckA").checked=true}
-                        else if (estado =='Nuevo'){document.getElementById("idCheckN").checked = true}
-                        else {document.getElementById("idCheckD").checked = true}
+                            document.getElementById("idCheckA").checked=true;}
+                        else if (estado =='Nuevo'){document.getElementById("idCheckN").checked = true;}
+                        else {document.getElementById("idCheckD").checked = true;}
                             }
                         }
             

@@ -164,19 +164,19 @@
                                                 <input id="UpdateUser" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">                                     
                                             </div>
                                            <div class="form-check">
-                                               <input class="form-check-input" type="radio" name="miCheckA" id="idCheckA" value="option1">
+                                               <input class="form-check-input" type="radio" name="miCheck" id="idCheck" value="option1" >
                                                 <label class="form-check-label" for="idCheckA">
                                                   Activo
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="miCheckN" id="idCheckN" value="option2" >
+                                            <input class="form-check-input" type="radio" name="miCheck" id="idCheckN" value="option2" >
                                             <label class="form-check-label" for="idCheckN">
                                               Nuevo
                                             </label>
                                           </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="miCheckD" id="idCheckD" value="option3">
+                                                <input class="form-check-input" type="radio" name="miCheck" id="idCheckD" value="option3" >
                                                 <label class="form-check-label" for="idCheckD">
                                                   Desactivo
                                                 </label>
@@ -213,16 +213,18 @@
         <script src="js/simple-datatables2.js" ></script>
         <script src="js/datatables-simple-demo.js"></script>
         <script>
+                        
             function abroModalProducto(id, producto,estado){
                 if(id == 'idU'){
-                        document.getElementById("idCheckA").checked = false
-                        document.getElementById("idCheckD").checked = false
-                        document.getElementById("idCheckN").checked = false
+                        document.getElementById("idCheckA").checked= false
+                        document.getElementById("idCheckN").checked= false
+                        document.getElementById("idCheckD").checked= false
+                        
                         document.getElementById("UpdateUser").value= producto
                         if(estado=='Activo'){
-                            document.getElementById("idCheckA").checked = true;}
-                        else if (estado =='Nuevo'){document.getElementById("idCheckN").checked = true;}
-                        else {document.getElementById("idCheckD").checked = true;}
+                            document.getElementById("idCheckA").checked=true}
+                        else if (estado =='Nuevo'){document.getElementById("idCheckN").checked = true}
+                        else {document.getElementById("idCheckD").checked = true}
                             }
                         }
             

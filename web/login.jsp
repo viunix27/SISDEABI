@@ -67,7 +67,7 @@
                                                 sesion.setAttribute("logueado", 1);
                                                 sesion.setAttribute("idCuenta", user);
                                                 sesion.setAttribute("ID", ID);
-                                                IDBandera =1;
+                                                IDBandera =0;
                                                 response.sendRedirect("Dashboard.jsp");
                                             } else {
                                                     IDBandera = 1;

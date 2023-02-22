@@ -18,9 +18,7 @@
         <link href="css/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />   
         <link rel="shortcut icon" href="images/Logo_corto.jpg">
-        <script src="js/all.js" crossorigin="anonymous"></script>
-        <script src="js/chart.js"></script>
-        <script src="js/jquery_v2.min.js"></script>
+     
 
                    
     </head>
@@ -55,7 +53,7 @@
                 </li>
             </ul>
         </nav>
-        <div class="loader-page"></div>
+       <div class="loader-page"></div>
         <div id="layoutSidenav" >
             <div id="layoutSidenav_nav">
                 <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
@@ -100,10 +98,22 @@
                         <ol class="breadcrumb mb-4">
                             <li class="breadcrumb-item active">Dashboard</li>
                         </ol>
+                        
+                         <% try {
+                                       ResultSet rs1,rs2,rs3,rs4= null;
+                                       AccesoDatos listaU = new AccesoDatos();
+                                       AccesoDatos listaU2 = new AccesoDatos();
+                                       AccesoDatos listaU3 = new AccesoDatos();
+                                       AccesoDatos listaU4 = new AccesoDatos();
+                                       rs1 = listaU.ListadoUser(5);                       
+                                       rs2 = listaU2.ListadoUser(6);
+                                       rs3 = listaU3.ListadoUser(7);
+                                       rs4 = listaU4.ListadoUser(8);
+                                         %>                 
                         <div class="row">
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-primary text-white mb-4">
-                                    <div class="card-body d-flex d-flex justify-content-center align-items-center"><h2>80</h2></div>
+                                    <div class="card-body d-flex d-flex justify-content-center align-items-center"><h2><%while(rs1.next()) {out.print(rs1.getInt(1));}%></h2></div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                        <h5><a class="small text-white stretched-link" href="Configuracion.jsp">Usuarios Activos</a></h5>
                                         <i class="fa-solid fa-users"></i>
@@ -112,7 +122,7 @@
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-warning text-white mb-4">
-                                   <div class="card-body d-flex d-flex justify-content-center align-items-center"><h2>20</h2></div>
+                                   <div class="card-body d-flex d-flex justify-content-center align-items-center"><h2><%while(rs2.next()) {out.print(rs2.getInt(1));}%></h2></div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <h5><a class="small text-white stretched-link" href="Configuracion.jsp">Usuarios Nuevos</a></h5>
                                        <i class="fa-solid fa-user-plus"></i>
@@ -121,7 +131,7 @@
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-success text-white mb-4">
-                                    <div class="card-body d-flex d-flex justify-content-center align-items-center"><h2>815</h2></div>
+                                    <div class="card-body d-flex d-flex justify-content-center align-items-center"><h2><%while(rs4.next()){out.print(rs4.getInt(1));}%></h2></div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <h5><a class="small text-white stretched-link" href="Informes.jsp">Abigeato, ultimos 6 meses</a></h5>
                                         <i class="fa-solid fa-user-secret"></i> 
@@ -130,7 +140,7 @@
                             </div>
                             <div class="col-xl-3 col-md-6">
                                 <div class="card bg-danger text-white mb-4">
-                                   <div class="card-body d-flex d-flex justify-content-center align-items-center"><h2>55</h2></div>
+                                   <div class="card-body d-flex d-flex justify-content-center align-items-center"><h2><%while(rs3.next()) {out.print(rs3.getInt(1));}%></h2></div>
                                     <div class="card-footer d-flex align-items-center justify-content-between">
                                         <h5><a class="small text-white stretched-link" href="Configuracion.jsp">Usuarios Desactivos</a></h5>
                                       <i class="fa-solid fa-user-minus"></i>
@@ -138,6 +148,12 @@
                                 </div>
                             </div>
                         </div>
+                                        <%                                                                                
+                                            } catch (Exception e) {
+                                        out.write("Error" + e.getMessage());
+                                            }
+                                        %>
+                        
                         <div class="row">
                             <div class="col-xl-6">
                                 <div class="card mb-4">
@@ -226,6 +242,9 @@
         <script src="js/assets/demo/chart-dona-vs.js"></script>  
         <script src="js/simple-datatables2.js" ></script>
         <script src="js/datatables-simple-demo.js"></script>
+        <script src="js/all.js" crossorigin="anonymous"></script>
+        <script src="js/chart.js"></script>
+        <script src="js/jquery_v2.min.js"></script>
         <script>
           $(window).on('load', function () {
       setTimeout(function () {

@@ -9,6 +9,7 @@
 <%@page import="java.text.SimpleDateFormat"%>
 <%@page import="java.util.Calendar"%>
 <%@page import="java.sql.Date"%>
+<%@page import="Sql.Encriptar"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -123,16 +124,15 @@
                                        ResultSet rs = null;
                                        AccesoDatos listaU = new AccesoDatos();
                                        rs = listaU.ListadoUser(2);
-                                         
                                        while (rs.next()) {  %> 
                                         <tr>
-                                        <td><%out.print(rs.getString(1));%></td> 
-                                        <td><%out.print(rs.getString(2));%></td>
+                                        <td><%out.print(rs.getString(2));%></td> 
                                         <td><%out.print(rs.getString(3));%></td>
                                         <td><%out.print(rs.getString(4));%></td>
                                         <td><%out.print(rs.getString(5));%></td>
+                                        <td><%out.print(rs.getString(6));%></td>
                                         <td>
-                                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="abroModalProducto('idU','<%=rs.getString(1)%>','<%=rs.getString(5)%>')"><i class="fa fa-pencil"></i></button>                                     
+                                            <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onclick="abroModalProducto('idU','<%=rs.getString(1)%>','<%=rs.getString(2)%>','<%=rs.getString(6)%>')"><i class="fa fa-pencil"></i></button>                                     
                                         </td>
                                         </tr>
                                         <%
@@ -147,6 +147,7 @@
                         </div>
                     </div>
                 </main>
+                                    
  <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -161,38 +162,69 @@
                                             <div class="mb-3">
                                                  <i class="fas fa-user fa-fw"></i> 
                                                  <label>Cuenta a modificar:</label>  
-                                                <input id="UpdateUser" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">                                     
+                                                <input id="UpdateUser" name = "idCuenta" type="text" class="form-control" placeholder="Username" aria-label="Username" aria-describedby="basic-addon1" readonly="readonly">                                     
+                                                <input id="UpdateUserId" name = "id2" type="hidden">
                                             </div>
                                            <div class="form-check">
-                                               <input class="form-check-input" type="radio" name="miCheck" id="idCheckA" value="option1" >
+                                               <input class="form-check-input" type="radio" name="miCheck" id="idCheckA" value="Activo" >
                                                 <label class="form-check-label" for="idCheckA">
                                                   Activo
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="miCheck" id="idCheckN" value="option2" >
+                                            <input class="form-check-input" type="radio" name="miCheck" id="idCheckN" value="Nuevo" >
                                             <label class="form-check-label" for="idCheckN">
                                               Nuevo
                                             </label>
                                           </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="radio" name="miCheck" id="idCheckD" value="option3" >
+                                                <input class="form-check-input" type="radio" name="miCheck" id="idCheckD" value="Desactivo" >
                                                 <label class="form-check-label" for="idCheckD">
                                                   Desactivo
                                                 </label>
-                                              </div>                                          
+                                              </div>            
+                                            <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Cerrar</button>
+                                            <button type="submit" class="btn btn-primary" name="idguardarEstado" >Guardar</button>
+                                             </div>
                                         </form>
                                     </div>
-                                             <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
-                            <button type="button" class="btn btn-primary">Guardar cambios</button>
-                         </div>
+                                             
+                             <%  
+                                
+                            if (request.getParameter("idguardarEstado") != null) 
+                            {
+                                
+                             try {
+                            ResultSet rs = null;
+                            AccesoDatos actualizarU = new AccesoDatos();
+                            String valor2 =request.getParameter("id2");
+                            String valor3 =request.getParameter("idCuenta");                            
+                            String select[] = request.getParameterValues("miCheck");
+                            String valorcheck ="";
+                            
+                            if (select != null && select.length != 0) {
+                            for (int i = 0; i < select.length; i++) {
+                            valorcheck = select[i];
+                            }}
+                            
+                            rs = actualizarU.ActualizarUser(2,valorcheck,valor2,valor3); 
+                           
+                            //sesion.setAttribute("logueado", 1);
+                            //sesion.setAttribute("idCuenta", valor3);
+                                    } catch (Exception e) {
+                                        out.write("Error" + e.getMessage());
+                                    }  
+                                    
+                                }
+                            
+                                %>
+                         
                         </div>
                               </div>
                             </div>
                           </div>
-                        </div>            
-                                                                      
+                        </div>                                                
                 <footer class="py-4 bg-light mt-auto">
                    <div class="container-fluid px-4">
                         <div class="d-flex align-items-center justify-content-between small">
@@ -213,20 +245,22 @@
         <script src="js/simple-datatables2.js" ></script>
         <script src="js/datatables-simple-demo.js"></script>
         <script>
-                        
-            function abroModalProducto(id, producto,estado){
+               
+            function abroModalProducto(id,iduser, producto,estado){
                 if(id == 'idU'){
                         document.getElementById("idCheckA").checked= false
                         document.getElementById("idCheckN").checked= false
                         document.getElementById("idCheckD").checked= false
                         
                         document.getElementById("UpdateUser").value= producto
+                        document.getElementById("UpdateUserId").value= iduser
                         if(estado=='Activo'){
                             document.getElementById("idCheckA").checked=true;}
                         else if (estado =='Nuevo'){document.getElementById("idCheckN").checked = true;}
                         else {document.getElementById("idCheckD").checked = true;}
                             }
                         }
+                       
             
         
         </script>

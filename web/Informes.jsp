@@ -109,7 +109,7 @@
                                 Historial de Abigueado en Nicaragua
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table id="datatablesSimple" class="table table-striped datatable-table">
                                     <thead>
                                         <tr>
                                             <th>ID</th>
